@@ -138,13 +138,18 @@
       cursor: pointer;
       transition: border-color 0.15s, transform 0.1s;
       -webkit-tap-highlight-color: transparent;
+      /* Zorg dat kaart nooit breder wordt dan de kolom */
+      min-width: 0;
+      width: 100%;
     }
 
     .card:active { transform: scale(0.97); }
 
     .card-img {
       width: 100%;
-      aspect-ratio: 4/3;
+      /* Hoogte gebaseerd op schermbreedte: elke kolom is ~47vw, ratio 4/3 = hoogte 35vw */
+      height: 35vw;
+      max-height: 200px;
       background: #eae8e4;
       display: flex;
       align-items: center;
@@ -241,11 +246,15 @@
       background: #b4b4b4;
       border: 0.5px dashed #747474;
       border-radius: 14px;
-      aspect-ratio: 4/3;
+      /* Zelfde hoogte als card-img */
+      height: calc(35vw + 52px);
+      max-height: 252px;
       display: flex;
       align-items: center;
       justify-content: center;
       opacity: 0.3;
+      min-width: 0;
+      width: 100%;
     }
     .placeholder span {
       font-size: 13px;
@@ -510,6 +519,10 @@ const TOTAL = 50;
 
 const spots = [
 
+  // ✏️ SPOTS — vervang een placeholder door een echte spot
+  // Verander type: "placeholder" naar de echte gegevens
+  // LET OP: rarity altijd kleine letters: legendary / rare / common
+
   // ─── SPOT #001 ───────────────────────────────────────────
   {
     num: "#001",
@@ -522,9 +535,25 @@ const spots = [
     dateLabel: "01 januari 2026",
     spotter: "Iedereen",
     opmerking: "De originele Simon Loos Mercedes",
-    fotos: [
-      { spotter: "Iedereen", date: "01 januari 2026", img: "fotos/simonloos/Simon Loos - Mercedes.jpeg" },
-    ]
+    fotos: [{spotter:"Iedereen",date:"01 januari 2026",img:"fotos/simonloos/Simon Loos - Mercedes.jpeg"}],
+  },
+
+  // ─── SPOT #002 ───────────────────────────────────────────
+  {
+    num: "#002",
+    type: "placeholder",
+  },
+
+  // ─── SPOT #003 ───────────────────────────────────────────
+  {
+    num: "#003",
+    type: "placeholder",
+  },
+
+  // ─── SPOT #004 ───────────────────────────────────────────
+  {
+    num: "#004",
+    type: "placeholder",
   },
 
   // ─── SPOT #005 ───────────────────────────────────────────
@@ -539,9 +568,7 @@ const spots = [
     dateLabel: "11 mei 2026",
     spotter: "Kevin Raaijmakers",
     opmerking: "Simon Loos met een Albert Heijn trailer",
-    fotos: [
-      { spotter: "Kevin Raaijmakers", date: "11 mei 2026", img: "fotos/appie/Kevin Raaijmakers 11-05-2026.jpeg" },
-    ]
+    fotos: [{spotter:"Kevin Raaijmakers",date:"11 mei 2026",img:"fotos/appie/Kevin Raaijmakers 11-05-2026.jpeg"}],
   },
 
   // ─── SPOT #006 ───────────────────────────────────────────
@@ -556,9 +583,7 @@ const spots = [
     dateLabel: "26 mei 2026",
     spotter: "Lars Peeters",
     opmerking: "Simon Loos eActros 300 met Appie bestickering over het regenboog zebrapad in Den Bosch",
-    fotos: [
-      { spotter: "Lars Peeters", date: "26 mei 2026", img: "fotos/SimonLoos-eActrosAppie.jpeg" },
-    ]
+    fotos: [{spotter:"Lars Peeters",date:"26 mei 2026",img:"fotos/SimonLoos-eActrosAppie.jpeg"}],
   },
 
   // ─── SPOT #007 ───────────────────────────────────────────
@@ -573,10 +598,7 @@ const spots = [
     dateLabel: "12 mei 2026",
     spotter: "Mika Broeders",
     opmerking: "Simon Loos met de Lidl trailer erachter op de A16",
-    fotos: [
-      { spotter: "Mika Broeders",   date: "12 mei 2026", img: "fotos/lidl/mika 12 mei a16.jpg" },
-      { spotter: "Sam Cornelissen", date: "21 mei 2026", img: "fotos/lidl/sam 21 mei.jpeg" },
-    ]
+    fotos: [{spotter:"Mika Broeders",date:"12 mei 2026",img:"fotos/lidl/mika 12 mei a16.jpg"},{spotter:"Sam Cornelissen",date:"21 mei 2026",img:"fotos/lidl/sam 21 mei.jpeg"}],
   },
 
   // ─── SPOT #008 ───────────────────────────────────────────
@@ -591,10 +613,7 @@ const spots = [
     dateLabel: "19 mei 2026",
     spotter: "Jorrit Huisman",
     opmerking: "De Diesel Loos versie van LIDL en Simon Loos",
-    fotos: [
-      { spotter: "Jesse",          date: "2 juni 2026",  img: "fotos/lidl/jesse dieselloos 2 juni.jpeg" },
-      { spotter: "Jorrit Huisman", date: "19 mei 2026",  img: "fotos/lidl/jorrit dieselloos 19 mei.jpeg" },
-    ]
+    fotos: [{spotter:"Jesse",date:"2 juni 2026",img:"fotos/lidl/jesse dieselloos 2 juni.jpeg"},{spotter:"Jorrit Huisman",date:"19 mei 2026",img:"fotos/lidl/jorrit dieselloos 19 mei.jpeg"}],
   },
 
   // ─── SPOT #009 ───────────────────────────────────────────
@@ -609,9 +628,7 @@ const spots = [
     dateLabel: "12 mei 2026",
     spotter: "Kevin Raaijmakers",
     opmerking: "Simon Loos DAF met een SPAR trailer",
-    fotos: [
-      { spotter: "Kevin Raaijmakers", date: "12 mei 2026", img: "fotos/SimonLoos-SPAR.jpeg" },
-    ]
+    fotos: [{spotter:"Kevin Raaijmakers",date:"12 mei 2026",img:"fotos/SimonLoos-SPAR.jpeg"}],
   },
 
   // ─── SPOT #010 ───────────────────────────────────────────
@@ -626,9 +643,7 @@ const spots = [
     dateLabel: "1 juni 2026",
     spotter: "Melvin Arts",
     opmerking: "Simon Loos Mercedes met een prachtige pittige Doritos trailer",
-    fotos: [
-      { spotter: "Melvin Arts", date: "1 juni 2026", img: "fotos/SimonLoos-Doritos.jpg" },
-    ]
+    fotos: [{spotter:"Melvin Arts",date:"1 juni 2026",img:"fotos/SimonLoos-Doritos.jpg"}],
   },
 
   // ─── SPOT #011 ───────────────────────────────────────────
@@ -643,9 +658,25 @@ const spots = [
     dateLabel: "1 juni 2026",
     spotter: "Melvin Arts",
     opmerking: "Simon Loos met een prachtige Cheetos trailer, met de ringetjes die helaas verdwijnen",
-    fotos: [
-      { spotter: "Melvin Arts", date: "1 juni 2026", img: "fotos/SimonLoos-Cheetos.jpeg" },
-    ]
+    fotos: [{spotter:"Melvin Arts",date:"1 juni 2026",img:"fotos/SimonLoos-Cheetos.jpeg"}],
+  },
+
+  // ─── SPOT #012 ───────────────────────────────────────────
+  {
+    num: "#012",
+    type: "placeholder",
+  },
+
+  // ─── SPOT #013 ───────────────────────────────────────────
+  {
+    num: "#013",
+    type: "placeholder",
+  },
+
+  // ─── SPOT #014 ───────────────────────────────────────────
+  {
+    num: "#014",
+    type: "placeholder",
   },
 
   // ─── SPOT #015 ───────────────────────────────────────────
@@ -660,9 +691,31 @@ const spots = [
     dateLabel: "19 mei 2026",
     spotter: "Jorrit Huisman",
     opmerking: "Simon Loos met een prachtige Snack & Jack trailer",
-    fotos: [
-      { spotter: "Jorrit Huisman", date: "19 mei 2026", img: "fotos/SimonLoos-SnackJack.jpeg" },
-    ]
+    fotos: [{spotter:"Jorrit Huisman",date:"19 mei 2026",img:"fotos/SimonLoos-SnackJack.jpeg"}],
+  },
+
+  // ─── SPOT #016 ───────────────────────────────────────────
+  {
+    num: "#016",
+    type: "placeholder",
+  },
+
+  // ─── SPOT #017 ───────────────────────────────────────────
+  {
+    num: "#017",
+    type: "placeholder",
+  },
+
+  // ─── SPOT #018 ───────────────────────────────────────────
+  {
+    num: "#018",
+    type: "placeholder",
+  },
+
+  // ─── SPOT #019 ───────────────────────────────────────────
+  {
+    num: "#019",
+    type: "placeholder",
   },
 
   // ─── SPOT #020 ───────────────────────────────────────────
@@ -677,10 +730,7 @@ const spots = [
     dateLabel: "28 mei 2026",
     spotter: "Mika Broeders",
     opmerking: "Bavaria-branding op volledige trailer en vrachtwagen",
-    fotos: [
-      { spotter: "Mika Broeders", date: "28 mei 2026", img: "fotos/bavaria/Daan Jans 01-06-2026.jpeg" },
-      { spotter: "Daan Jans",     date: "1 juni 2026",  img: "fotos/bavaria/Daan Jans 01-06-2026.jpeg" },
-    ]
+    fotos: [{spotter:"Mika Broeders",date:"28 mei 2026",img:"fotos/bavaria/Daan Jans 01-06-2026.jpeg"},{spotter:"Daan Jans",date:"1 juni 2026",img:"fotos/bavaria/Daan Jans 01-06-2026.jpeg"}],
   },
 
   // ─── SPOT #021 ───────────────────────────────────────────
@@ -695,9 +745,7 @@ const spots = [
     dateLabel: "01 januari 2026",
     spotter: "Mika Broeders",
     opmerking: "Simon Loos vrachtwagen met LIDL Kordaat trailer",
-    fotos: [
-      { spotter: "Mika Broeders", date: "01 januari 2026", img: "fotos/SimonLoos-Kordaat.jpeg" },
-    ]
+    fotos: [{spotter:"Mika Broeders",date:"01 januari 2026",img:"fotos/SimonLoos-Kordaat.jpeg"}],
   },
 
   // ─── SPOT #022 ───────────────────────────────────────────
@@ -712,10 +760,7 @@ const spots = [
     dateLabel: "12 mei 2026",
     spotter: "Mika Broeders",
     opmerking: "Hebben we dorst mannen? Simon Heineken",
-    fotos: [
-      { spotter: "Mika Broeders",    date: "12 mei 2026", img: "fotos/heineken/mika broeders 12-05-2026.jpeg" },
-      { spotter: "Luc van Dommelen", date: "26 mei 2026", img: "fotos/heineken/luc 26-05-2026.jpeg" },
-    ]
+    fotos: [{spotter:"Mika Broeders",date:"12 mei 2026",img:"fotos/heineken/mika broeders 12-05-2026.jpeg"},{spotter:"Luc van Dommelen",date:"26 mei 2026",img:"fotos/heineken/luc 26-05-2026.jpeg"}],
   },
 
   // ─── SPOT #023 ───────────────────────────────────────────
@@ -730,10 +775,7 @@ const spots = [
     dateLabel: "1 januari 2026",
     spotter: "Daan Jans",
     opmerking: "",
-    fotos: [
-      { spotter: "Daan Jans",        date: "28 mei 2026", img: "fotos/heinekensilver/daan jans 28-05-2026.jpeg" },
-      { spotter: "Luc van Dommelen", date: "2 juni 2026",  img: "fotos/heinekensilver/luc 02-06-2026.jpeg" },
-    ]
+    fotos: [{spotter:"Daan Jans",date:"28 mei 2026",img:"fotos/heinekensilver/daan jans 28-05-2026.jpeg"},{spotter:"Luc van Dommelen",date:"2 juni 2026",img:"fotos/heinekensilver/luc 02-06-2026.jpeg"}],
   },
 
   // ─── SPOT #024 ───────────────────────────────────────────
@@ -748,10 +790,37 @@ const spots = [
     dateLabel: "27 mei 2026",
     spotter: "Luc van Dommelen",
     opmerking: "",
-    fotos: [
-      { spotter: "Luc van Dommelen", date: "27 mei 2026", img: "fotos/amstel/luc 27-05-2026.jpeg" },
-      { spotter: "Tim de Bruijn",    date: "28 mei 2026", img: "fotos/amstel/tim 28-05-2026.jpeg" },
-    ]
+    fotos: [{spotter:"Luc van Dommelen",date:"27 mei 2026",img:"fotos/amstel/luc 27-05-2026.jpeg"},{spotter:"Tim de Bruijn",date:"28 mei 2026",img:"fotos/amstel/tim 28-05-2026.jpeg"}],
+  },
+
+  // ─── SPOT #025 ───────────────────────────────────────────
+  {
+    num: "#025",
+    type: "placeholder",
+  },
+
+  // ─── SPOT #026 ───────────────────────────────────────────
+  {
+    num: "#026",
+    type: "placeholder",
+  },
+
+  // ─── SPOT #027 ───────────────────────────────────────────
+  {
+    num: "#027",
+    type: "placeholder",
+  },
+
+  // ─── SPOT #028 ───────────────────────────────────────────
+  {
+    num: "#028",
+    type: "placeholder",
+  },
+
+  // ─── SPOT #029 ───────────────────────────────────────────
+  {
+    num: "#029",
+    type: "placeholder",
   },
 
   // ─── SPOT #030 ───────────────────────────────────────────
@@ -766,9 +835,7 @@ const spots = [
     dateLabel: "1 januari 2026",
     spotter: "Mika Broeders",
     opmerking: "",
-    fotos: [
-      { spotter: "Mika Broeders", date: "1 januari 2026", img: "fotos/SimonLoos-Bakker.jpeg" },
-    ]
+    fotos: [{spotter:"Mika Broeders",date:"1 januari 2026",img:"fotos/SimonLoos-Bakker.jpeg"}],
   },
 
   // ─── SPOT #031 ───────────────────────────────────────────
@@ -783,9 +850,7 @@ const spots = [
     dateLabel: "1 juni 2026",
     spotter: "Melvin Arts",
     opmerking: "",
-    fotos: [
-      { spotter: "Melvin Arts", date: "1 juni 2026", img: "fotos/SimonLoos-FeedFood.jpeg" },
-    ]
+    fotos: [{spotter:"Melvin Arts",date:"1 juni 2026",img:"fotos/SimonLoos-FeedFood.jpeg"}],
   },
 
   // ─── SPOT #032 ───────────────────────────────────────────
@@ -800,27 +865,116 @@ const spots = [
     dateLabel: "28 mei 2026",
     spotter: "Sam Cornelissen",
     opmerking: "Bij het Simon Loos nest",
-    fotos: [
-      { spotter: "Sam Cornelissen", date: "28 mei 2026", img: "fotos/SimonLoos-Oldtimers.jpeg" },
-    ]
+    fotos: [{spotter:"Sam Cornelissen",date:"28 mei 2026",img:"fotos/SimonLoos-Oldtimers.jpeg"}],
   },
 
-  // ─── NIEUWE SPOT — kopieer dit blok en vul in ────────────
-  // {
-  //   num: "#033",
-  //   name: "Naam van de variant",
-  //   model: "Merk + model",
-  //   rarity: "rare",              // legendary / rare / common (altijd kleine letters!)
-  //   kenteken: "XX-XXX-X",
-  //   loc: "Stad, weg",
-  //   date: "2026-06-01",          // JJJJ-MM-DD (voor sortering)
-  //   dateLabel: "1 jun 2026",
-  //   spotter: "Naam spotter",
-  //   opmerking: "Optionele opmerking",
-  //   fotos: [
-  //     { spotter: "Naam", date: "1 jun 2026", img: "fotos/bestandsnaam.jpg" },
-  //   ]
-  // },
+  // ─── SPOT #033 ───────────────────────────────────────────
+  {
+    num: "#033",
+    type: "placeholder",
+  },
+
+  // ─── SPOT #034 ───────────────────────────────────────────
+  {
+    num: "#034",
+    type: "placeholder",
+  },
+
+  // ─── SPOT #035 ───────────────────────────────────────────
+  {
+    num: "#035",
+    type: "placeholder",
+  },
+
+  // ─── SPOT #036 ───────────────────────────────────────────
+  {
+    num: "#036",
+    type: "placeholder",
+  },
+
+  // ─── SPOT #037 ───────────────────────────────────────────
+  {
+    num: "#037",
+    type: "placeholder",
+  },
+
+  // ─── SPOT #038 ───────────────────────────────────────────
+  {
+    num: "#038",
+    type: "placeholder",
+  },
+
+  // ─── SPOT #039 ───────────────────────────────────────────
+  {
+    num: "#039",
+    type: "placeholder",
+  },
+
+  // ─── SPOT #040 ───────────────────────────────────────────
+  {
+    num: "#040",
+    type: "placeholder",
+  },
+
+  // ─── SPOT #041 ───────────────────────────────────────────
+  {
+    num: "#041",
+    type: "placeholder",
+  },
+
+  // ─── SPOT #042 ───────────────────────────────────────────
+  {
+    num: "#042",
+    type: "placeholder",
+  },
+
+  // ─── SPOT #043 ───────────────────────────────────────────
+  {
+    num: "#043",
+    type: "placeholder",
+  },
+
+  // ─── SPOT #044 ───────────────────────────────────────────
+  {
+    num: "#044",
+    type: "placeholder",
+  },
+
+  // ─── SPOT #045 ───────────────────────────────────────────
+  {
+    num: "#045",
+    type: "placeholder",
+  },
+
+  // ─── SPOT #046 ───────────────────────────────────────────
+  {
+    num: "#046",
+    type: "placeholder",
+  },
+
+  // ─── SPOT #047 ───────────────────────────────────────────
+  {
+    num: "#047",
+    type: "placeholder",
+  },
+
+  // ─── SPOT #048 ───────────────────────────────────────────
+  {
+    num: "#048",
+    type: "placeholder",
+  },
+
+  // ─── SPOT #049 ───────────────────────────────────────────
+  {
+    num: "#049",
+    type: "placeholder",
+  },
+
+  // ─── SPOT #050 ───────────────────────────────────────────
+  {
+    num: "#050",
+    type: "placeholder",
+  },
 
 ];
 
@@ -841,14 +995,19 @@ let slideIdx   = 0;
 
 function getSorted() {
   const s = [...spots];
-  if (sortMode === "nieuw") return s.sort((a, b) => b.date.localeCompare(a.date));
-  if (sortMode === "oud")   return s.sort((a, b) => a.date.localeCompare(b.date));
-  // Nummer sortering: fotos eerst, dan op nummer
+  if (sortMode === "num") return s.sort((a, b) => a.num.localeCompare(b.num));
+  // Voor datum: placeholders altijd achteraan
+  if (sortMode === "nieuw") return s.sort((a, b) => {
+    if (a.type === "placeholder" && b.type === "placeholder") return a.num.localeCompare(b.num);
+    if (a.type === "placeholder") return 1;
+    if (b.type === "placeholder") return -1;
+    return b.date.localeCompare(a.date);
+  });
   return s.sort((a, b) => {
-    const aHasImg = a.fotos[0] && a.fotos[0].img ? 0 : 1;
-    const bHasImg = b.fotos[0] && b.fotos[0].img ? 0 : 1;
-    if (aHasImg !== bHasImg) return aHasImg - bHasImg;
-    return a.num.localeCompare(b.num);
+    if (a.type === "placeholder" && b.type === "placeholder") return a.num.localeCompare(b.num);
+    if (a.type === "placeholder") return 1;
+    if (b.type === "placeholder") return -1;
+    return a.date.localeCompare(b.date);
   });
 }
 
@@ -866,11 +1025,18 @@ function render() {
   const sorted = getSorted();
 
   sorted.forEach(s => {
+    if (s.type === "placeholder") {
+      const p = document.createElement("div");
+      p.className = "placeholder";
+      p.innerHTML = `<span>${s.num.replace("#", "")}</span>`;
+      g.appendChild(p);
+      return;
+    }
     const rarity = r(s);
     const c = document.createElement("div");
     c.className = "card";
     c.onclick = () => openDetail(s);
-    const firstImg = s.fotos[0] && s.fotos[0].img
+    const firstImg = s.fotos && s.fotos[0] && s.fotos[0].img
       ? `<img src="${s.fotos[0].img}" alt="${s.name}">`
       : `<i class="ti ti-photo"></i>`;
     c.innerHTML = `
@@ -893,21 +1059,10 @@ function render() {
     g.appendChild(c);
   });
 
-  // Vul lege vakjes met nummers die nog niet gebruikt zijn
-  const usedNums = new Set(spots.map(s => s.num));
-  let filled = 0;
-  for (let i = 1; i <= TOTAL && filled < (TOTAL - spots.length); i++) {
-    const num = "#" + String(i).padStart(3, "0");
-    if (!usedNums.has(num)) {
-      const p = document.createElement("div");
-      p.className = "placeholder";
-      p.innerHTML = `<span>${String(i).padStart(3, "0")}</span>`;
-      g.appendChild(p);
-      filled++;
-    }
-  }
+  // Lege vakjes worden direct uit spots gehaald (type: "placeholder")
+  // Geen extra logica nodig
 
-  document.getElementById("cnt").textContent = spots.length + " / " + TOTAL;
+  document.getElementById("cnt").textContent = spots.filter(s => s.type !== "placeholder").length + " / " + TOTAL;
 }
 
 function openDetail(s) {
