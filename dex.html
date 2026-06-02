@@ -127,6 +127,7 @@
     .grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 1fr;
       gap: 10px;
     }
 
@@ -242,19 +243,23 @@
     .lbl-rare      { color: var(--rare); font-weight: 500; }
     .lbl-common    { color: var(--common); }
 
-    .placeholder {
+    .placeholder-card {
       background: #b4b4b4;
       border: 0.5px dashed #747474;
       border-radius: 14px;
-      /* Zelfde hoogte als card-img */
-      height: calc(35vw + 52px);
-      max-height: 252px;
       display: flex;
       align-items: center;
       justify-content: center;
       opacity: 0.3;
+      pointer-events: none;
       min-width: 0;
       width: 100%;
+    }
+    .placeholder-num {
+      font-size: 20px;
+      font-family: 'DM Mono', monospace;
+      color: #555;
+      font-weight: 500;
     }
     .placeholder span {
       font-size: 13px;
@@ -1027,8 +1032,8 @@ function render() {
   sorted.forEach(s => {
     if (s.type === "placeholder") {
       const p = document.createElement("div");
-      p.className = "placeholder";
-      p.innerHTML = `<span>${s.num.replace("#", "")}</span>`;
+      p.className = "placeholder-card";
+      p.innerHTML = `<span class="placeholder-num">${s.num}</span>`;
       g.appendChild(p);
       return;
     }
