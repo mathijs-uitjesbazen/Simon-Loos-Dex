@@ -24,6 +24,7 @@
       --rare-bg: #E6F1FB;
       --common: #666;
       --common-bg: #f0eeea;
+      --classic: #6D28D9;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -192,6 +193,7 @@
     .pip-legendary { background: #EF9F27; }
     .pip-rare      { background: #378ADD; }
     .pip-common    { background: #aaa; }
+    .pip-classic   { background: #8B5CF6; }
 
     .spot-count {
       position: absolute;
@@ -242,6 +244,7 @@
     .lbl-legendary { color: var(--legendary); font-weight: 500; }
     .lbl-rare      { color: var(--rare); font-weight: 500; }
     .lbl-common    { color: var(--common); }
+    .lbl-classic   { color: var(--classic); font-weight: 500; }
 
     .placeholder-card {
       background: #b4b4b4;
@@ -561,16 +564,16 @@ const spots = [
   // ─── SPOT #003 ───────────────────────────────────────────
   {
     num: "#003",
-    name: "Simon Loos - Dubbel",
-    model: "Mercedes",
-    rarity: "common",
+    name: "Simon Loos - Dubbele Trailer",
+    model: "Onbekend",
+    rarity: "rare",
     kenteken: "XX-XXX-XX",
-    loc: "Overal",
-    date: "2026-01-01",
-    dateLabel: "01 januari 2026",
-    spotter: "Iedereen",
-    opmerking: "De originele Simon Loos Mercedes",
-    fotos: [{spotter:"Iedereen",date:"01 januari 2026",img:"fotos/simonloos/Simon Loos - Mercedes.jpeg"}],
+    loc: "Onbekend",
+    date: "2026-05-12",
+    dateLabel: "12 mei 2026",
+    spotter: "Mika Broeders",
+    opmerking: "De originele Simon Loos Dubbele Trailer",
+    fotos: [{spotter:"Mika Broeders",date:"12 mei 2026",img:"fotos/simonloos/Simon Loos - Dubbele Trailer.jpeg"}],
   },
 
   // ─── SPOT #004 ───────────────────────────────────────────
@@ -584,8 +587,8 @@ const spots = [
     date: "2026-01-01",
     dateLabel: "01 januari 2026",
     spotter: "Iedereen",
-    opmerking: "De originele Simon Loos Mercedes",
-    fotos: [{spotter:"Iedereen",date:"01 januari 2026",img:"fotos/simonloos/Simon Loos - Mercedes.jpeg"}],
+    opmerking: "De originele Simon Loos Buis Mercedes",
+    fotos: [{spotter:"Iedereen",date:"01 januari 2026",img:"fotos/simonloos/Simon Loos Buis - Mercedes.jpeg"}],
   },
 
   // ─── SPOT #005 ───────────────────────────────────────────
@@ -1038,7 +1041,16 @@ const spots = [
   // ─── SPOT #048 ───────────────────────────────────────────
   {
     num: "#048",
-    type: "placeholder",
+    name: "Classic Simon Loos - Buis",
+    model: "Scania & Volvo",
+    rarity: "classic",
+    kenteken: "XX-XXX-XX",
+    loc: "Overal",
+    date: "2026-05-21",
+    dateLabel: "21 mei 2026",
+    spotter: "Tim de Bruijn",
+    opmerking: "De Classic Simon Loos Buis Scania & Volvo",
+    fotos: [{spotter:"Melvin Arts",date:"1 juni 2026",img:"fotos/simonloos/Simon Loos Buis - Classic-2.jpeg"},{spotter:"Melvin Arts",date:"21 mei 2026",img:"fotos/simonloos/Simon Loos Buis - Classic-1.jpeg"}],
   },
 
   // ─── SPOT #049 ───────────────────────────────────────────
@@ -1059,9 +1071,9 @@ const spots = [
 //  Hieronder hoef je niets aan te passen
 // ============================================================
 
-const pc = { legendary: "pip-legendary", rare: "pip-rare", common: "pip-common" };
-const lc = { legendary: "lbl-legendary", rare: "lbl-rare", common: "lbl-common" };
-const lt = { legendary: "Legendary",     rare: "Rare",     common: "Common"     };
+const pc = { legendary: "pip-legendary", rare: "pip-rare", common: "pip-common", classic: "pip-classic" };
+const lc = { legendary: "lbl-legendary", rare: "lbl-rare", common: "lbl-common", classic: "lbl-classic" };
+const lt = { legendary: "Legendary",     rare: "Rare",     common: "Common",     classic: "Classic"     };
 
 // Rarity normaliseren: hoofdletters worden automatisch omgezet
 function r(s) { return (s.rarity || "common").toLowerCase(); }
