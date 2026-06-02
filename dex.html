@@ -19,71 +19,445 @@
       --text-sub: #666;
       --text-hint: #999;
       --legendary: #BA7517;
+      --legendary-bg: #FEF3DC;
       --rare: #185FA5;
+      --rare-bg: #E6F1FB;
       --common: #666;
+      --common-bg: #f0eeea;
     }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
-    .header { background: var(--card-bg); border-bottom: 0.5px solid var(--border); padding: 1rem 1.25rem 0.85rem; position: sticky; top: 0; z-index: 5; }
-    .logo-area { display: flex; justify-content: center; margin-bottom: 0.85rem; }
-    .logo-area img { height: 56px; width: auto; object-fit: contain; display: block; }
-    .header-row { display: flex; align-items: center; gap: 10px; margin-bottom: 0.75rem; }
-    .sl-bar { width: 4px; height: 24px; background: var(--red); border-radius: 2px; flex-shrink: 0; }
-    .header-row h1 { font-size: 15px; font-weight: 500; flex: 1; letter-spacing: -0.01em; }
-    .header-row p { font-size: 11px; color: var(--text-sub); }
-    .dex-count { font-size: 11px; color: var(--text-hint); font-family: 'DM Mono', monospace; }
-    .sort-bar { display: flex; align-items: center; gap: 6px; }
-    .sort-label { font-size: 11px; color: var(--text-hint); margin-right: 2px; }
-    .sort-btn { padding: 4px 10px; font-size: 11px; border-radius: 20px; border: 0.5px solid var(--border-strong); background: none; color: var(--text-sub); cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.15s; }
-    .sort-btn.active { background: var(--red); border-color: var(--red); color: white; }
-    .grid-wrap { padding: 1rem 0.85rem 5rem; }
-    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-    .card { background: var(--card-bg); border: 0.5px solid var(--border); border-radius: 14px; overflow: hidden; cursor: pointer; transition: border-color 0.15s, transform 0.1s; -webkit-tap-highlight-color: transparent; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ─── HEADER ─── */
+    .header {
+      background: var(--card-bg);
+      border-bottom: 0.5px solid var(--border);
+      padding: 1rem 1.25rem 0.85rem;
+      position: sticky;
+      top: 0;
+      z-index: 5;
+    }
+
+    .logo-area {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 0.85rem;
+    }
+
+    .logo-area img {
+      height: 56px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .logo-placeholder {
+      height: 56px;
+      width: 56px;
+      border-radius: 10px;
+      border: 1.5px dashed var(--border-strong);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: var(--text-hint);
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .header-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 0.75rem;
+    }
+
+    .sl-bar {
+      width: 4px;
+      height: 24px;
+      background: var(--red);
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .header-row h1 {
+      font-size: 15px;
+      font-weight: 500;
+      flex: 1;
+      letter-spacing: -0.01em;
+    }
+
+    .header-row p {
+      font-size: 11px;
+      color: var(--text-sub);
+    }
+
+    .dex-count {
+      font-size: 11px;
+      color: var(--text-hint);
+      font-family: 'DM Mono', monospace;
+    }
+
+    .sort-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sort-label {
+      font-size: 11px;
+      color: var(--text-hint);
+      margin-right: 2px;
+    }
+
+    .sort-btn {
+      padding: 4px 10px;
+      font-size: 11px;
+      border-radius: 20px;
+      border: 0.5px solid var(--border-strong);
+      background: none;
+      color: var(--text-sub);
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: all 0.15s;
+    }
+
+    .sort-btn.active {
+      background: var(--red);
+      border-color: var(--red);
+      color: white;
+    }
+
+    /* ─── GRID ─── */
+    .grid-wrap {
+      padding: 1rem 0.85rem 5rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    /* ─── CARD ─── */
+    .card {
+      background: var(--card-bg);
+      border: 0.5px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color 0.15s, transform 0.1s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
     .card:active { transform: scale(0.97); }
-    .card-img { width: 100%; aspect-ratio: 4/3; background: #eae8e4; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 28px; position: relative; overflow: hidden; }
-    .card-img img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
-    .card-num { position: absolute; top: 7px; left: 8px; font-size: 10px; color: rgba(255,255,255,0.75); font-family: 'DM Mono', monospace; text-shadow: 0 1px 3px rgba(0,0,0,0.4); }
-    .pip { position: absolute; top: 7px; right: 8px; width: 7px; height: 7px; border-radius: 50%; }
+
+    .card-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: #eae8e4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #bbb;
+      font-size: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-img img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-num {
+      position: absolute;
+      top: 7px;
+      left: 8px;
+      font-size: 10px;
+      color: rgba(255,255,255,0.75);
+      font-family: 'DM Mono', monospace;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    }
+
+    .pip {
+      position: absolute;
+      top: 7px;
+      right: 8px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
     .pip-legendary { background: #EF9F27; }
-    .pip-rare { background: #378ADD; }
-    .pip-common { background: #aaa; }
-    .spot-count { position: absolute; bottom: 7px; right: 8px; display: flex; align-items: center; gap: 3px; font-size: 10px; color: rgba(255,255,255,0.9); background: rgba(0,0,0,0.35); border-radius: 20px; padding: 2px 7px; }
-    .card-body { padding: 8px 10px 10px; }
-    .card-name { font-size: 12px; font-weight: 500; color: var(--text); margin-bottom: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .card-sub { font-size: 11px; color: var(--text-sub); margin-bottom: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .card-row { display: flex; justify-content: space-between; font-size: 10px; color: var(--text-hint); border-top: 0.5px solid var(--border); padding-top: 5px; }
+    .pip-rare      { background: #378ADD; }
+    .pip-common    { background: #aaa; }
+
+    .spot-count {
+      position: absolute;
+      bottom: 7px;
+      right: 8px;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 10px;
+      color: rgba(255,255,255,0.9);
+      background: rgba(0,0,0,0.35);
+      border-radius: 20px;
+      padding: 2px 7px;
+    }
+
+    .card-body {
+      padding: 8px 10px 10px;
+    }
+
+    .card-name {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 1px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-sub {
+      font-size: 11px;
+      color: var(--text-sub);
+      margin-bottom: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: var(--text-hint);
+      border-top: 0.5px solid var(--border);
+      padding-top: 5px;
+    }
+
     .lbl-legendary { color: var(--legendary); font-weight: 500; }
-    .lbl-rare { color: var(--rare); font-weight: 500; }
-    .lbl-common { color: var(--common); }
-    .placeholder { background: #b4b4b4; border: 0.5px dashed #747474; border-radius: 14px; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; opacity: 0.3; }
-    .placeholder span { font-size: 13px; color: #747474; font-family: 'DM Mono', monospace; }
-    .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 100; align-items: flex-end; justify-content: center; padding: 0; }
+    .lbl-rare      { color: var(--rare); font-weight: 500; }
+    .lbl-common    { color: var(--common); }
+
+    /* ─── PLACEHOLDER ─── */
+    .placeholder {
+      background: #b4b4b4;
+      border: 0.5px dashed #747474;
+      border-radius: 14px;
+      aspect-ratio: 4/3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.3;
+    }
+    .placeholder span {
+      font-size: 13px;
+      color: #747474;
+      font-family: 'DM Mono', monospace;
+    }
+
+    /* ─── OVERLAY / DETAIL ─── */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 100;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 0;
+    }
     .overlay.open { display: flex; }
-    .detail { background: var(--card-bg); border-radius: 20px 20px 0 0; width: 100%; max-width: 480px; overflow: hidden; max-height: 92vh; overflow-y: auto; }
-    .photo-reel { width: 100%; aspect-ratio: 16/9; background: #eae8e4; position: relative; overflow: hidden; }
-    .reel-inner { display: flex; height: 100%; transition: transform 0.28s cubic-bezier(.4,0,.2,1); }
-    .reel-slide { min-width: 100%; height: 100%; flex-shrink: 0; position: relative; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 44px; overflow: hidden; }
-    .reel-slide img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
-    .reel-slide .no-photo { display: flex; flex-direction: column; align-items: center; gap: 6px; color: #bbb; }
-    .reel-slide .no-photo span { font-size: 12px; color: var(--text-hint); }
-    .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.55)); padding: 14px 12px 8px; display: flex; justify-content: space-between; align-items: flex-end; }
-    .photo-caption span { font-size: 10px; color: rgba(255,255,255,0.88); }
-    .reel-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.9); border: none; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; color: var(--text); }
+
+    .detail {
+      background: var(--card-bg);
+      border-radius: 20px 20px 0 0;
+      width: 100%;
+      max-width: 480px;
+      overflow: hidden;
+      max-height: 92vh;
+      overflow-y: auto;
+    }
+
+    .photo-reel {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #eae8e4;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .reel-inner {
+      display: flex;
+      height: 100%;
+      transition: transform 0.28s cubic-bezier(.4,0,.2,1);
+    }
+
+    .reel-slide {
+      min-width: 100%;
+      height: 100%;
+      flex-shrink: 0;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #bbb;
+      font-size: 44px;
+      overflow: hidden;
+    }
+
+    .reel-slide img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .reel-slide .no-photo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: #bbb;
+    }
+
+    .reel-slide .no-photo span {
+      font-size: 12px;
+      color: var(--text-hint);
+    }
+
+    .photo-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.55));
+      padding: 14px 12px 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .photo-caption span {
+      font-size: 10px;
+      color: rgba(255,255,255,0.88);
+    }
+
+    .reel-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.9);
+      border: none;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--text);
+    }
     .reel-prev { left: 8px; }
     .reel-next { right: 8px; }
-    .reel-dots { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); display: flex; gap: 4px; }
-    .reel-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.45); transition: background 0.2s; }
+
+    .reel-dots {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 4px;
+    }
+    .reel-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.45);
+      transition: background 0.2s;
+    }
     .reel-dot.active { background: white; }
-    .detail-body { padding: 1rem 1.1rem 1.5rem; }
-    .detail-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
-    .detail-name { font-size: 15px; font-weight: 500; color: var(--text); }
-    .detail-sub { font-size: 12px; color: var(--text-sub); margin-top: 2px; }
-    .detail-num { font-size: 11px; color: var(--text-hint); font-family: 'DM Mono', monospace; flex-shrink: 0; margin-left: 10px; margin-top: 2px; }
-    .dtable { width: 100%; border-collapse: collapse; }
-    .dtable td { font-size: 12.5px; padding: 5px 0; border-top: 0.5px solid var(--border); vertical-align: top; }
-    .dtable td:first-child { color: var(--text-sub); width: 36%; padding-right: 10px; }
+
+    .detail-body {
+      padding: 1rem 1.1rem 1.5rem;
+    }
+
+    .detail-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .detail-name {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .detail-sub {
+      font-size: 12px;
+      color: var(--text-sub);
+      margin-top: 2px;
+    }
+
+    .detail-num {
+      font-size: 11px;
+      color: var(--text-hint);
+      font-family: 'DM Mono', monospace;
+      flex-shrink: 0;
+      margin-left: 10px;
+      margin-top: 2px;
+    }
+
+    .dtable {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .dtable td {
+      font-size: 12.5px;
+      padding: 5px 0;
+      border-top: 0.5px solid var(--border);
+      vertical-align: top;
+    }
+    .dtable td:first-child {
+      color: var(--text-sub);
+      width: 36%;
+      padding-right: 10px;
+    }
     .dtable td:last-child { color: var(--text); }
-    .close-btn { width: 100%; margin-top: 14px; padding: 10px; border-radius: 10px; border: 0.5px solid var(--border-strong); background: none; font-size: 13px; color: var(--text-sub); cursor: pointer; font-family: 'DM Sans', sans-serif; transition: background 0.15s; }
+
+    .close-btn {
+      width: 100%;
+      margin-top: 14px;
+      padding: 10px;
+      border-radius: 10px;
+      border: 0.5px solid var(--border-strong);
+      background: none;
+      font-size: 13px;
+      color: var(--text-sub);
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: background 0.15s;
+    }
     .close-btn:hover { background: var(--bg); }
   </style>
 </head>
@@ -143,14 +517,12 @@
 
 <script>
 // ============================================================
-//  SPOTS — voeg hier nieuwe spots toe
+//  ✏️  SPOTS — voeg hier nieuwe spots toe
 //  Kopieer een heel blok van { ... }, plak het na de laatste spot,
-//  pas de gegevens aan en sla op.
-//
-//  rarity: altijd kleine letters: legendary / rare / common
+//  pas de gegevens aan en sla op. Dat is alles.
 // ============================================================
 
-const TOTAL = 50;
+const TOTAL = 50; // Totaal aantal vakjes in de DEX
 
 const spots = [
 
@@ -163,11 +535,11 @@ const spots = [
     kenteken: "XX-XXX-XX",
     loc: "Overal",
     date: "2026-01-01",
-    dateLabel: "1 januari 2026",
+    dateLabel: "01 januari 2026",
     spotter: "Iedereen",
     opmerking: "De originele Simon Loos Mercedes",
     fotos: [
-      { spotter: "Iedereen", date: "1 januari 2026", img: "fotos/Simon Loos - Mercedes.jpeg" },
+      { spotter: "Iedereen", date: "01 januari 2026", img: "fotos/simonloos/Simon Loos - Mercedes.jpeg"  },
     ]
   },
 
@@ -182,18 +554,18 @@ const spots = [
     date: "2026-05-11",
     dateLabel: "11 mei 2026",
     spotter: "Kevin Raaijmakers",
-    opmerking: "Simon Loos met een Albert Heijn trailer",
+    opmerking: "Simon Loos Volvo met een Campina trailer",
     fotos: [
       { spotter: "Kevin Raaijmakers", date: "11 mei 2026", img: "fotos/appie/Kevin Raaijmakers 11-05-2026.jpeg" },
     ]
   },
 
-  // ─── SPOT #006 ───────────────────────────────────────────
+    // ─── SPOT #006 ───────────────────────────────────────────
   {
     num: "#006",
     name: "Simon eActros x Albert Heijn",
     model: "Mercedes-Benz eActros 300",
-    rarity: "legendary",
+    rarity: "Legendary",
     kenteken: "XX-XXX-X",
     loc: "Den Bosch",
     date: "2026-05-26",
@@ -205,7 +577,7 @@ const spots = [
     ]
   },
 
-  // ─── SPOT #007 ───────────────────────────────────────────
+    // ─── SPOT #007 ───────────────────────────────────────────
   {
     num: "#007",
     name: "Simon Loos x Lidl",
@@ -222,8 +594,8 @@ const spots = [
       { spotter: "Sam Cornelissen", date: "21 mei 2026", img: "fotos/lidl/sam 21 mei.jpeg" },
     ]
   },
-
-  // ─── SPOT #008 ───────────────────────────────────────────
+  
+    // ─── SPOT #008 ───────────────────────────────────────────
   {
     num: "#008",
     name: "Diesel Loos - LIDL",
@@ -236,12 +608,12 @@ const spots = [
     spotter: "Jorrit Huisman",
     opmerking: "De Diesel Loos versie van LIDL en Simon Loos",
     fotos: [
-      { spotter: "Jesse",          date: "2 juni 2026",  img: "fotos/lidl/jesse dieselloos 2 juni.jpeg" },
-      { spotter: "Jorrit Huisman", date: "19 mei 2026",  img: "fotos/lidl/jorrit dieselloos 19 mei.jpeg" },
+      { spotter: "Jesse", date: "2 juni 2026", img: "fotos/lidl/jesse dieselloos 2 juni.jpeg" },
+      { spotter: "Jorrit Huisman", date: "19 mei 2026", img: "fotos/lidl/jorrit dieselloos 19 mei.jpeg" },
     ]
   },
 
-  // ─── SPOT #009 ───────────────────────────────────────────
+    // ─── SPOT #009 ───────────────────────────────────────────
   {
     num: "#009",
     name: "Simon x SPAR",
@@ -292,7 +664,7 @@ const spots = [
     ]
   },
 
-  // ─── SPOT #015 ───────────────────────────────────────────
+    // ─── SPOT #015 ───────────────────────────────────────────
   {
     num: "#015",
     name: "Simon x Snack&Jack",
@@ -322,12 +694,12 @@ const spots = [
     spotter: "X",
     opmerking: "Bavaria-branding op volledige trailer en vrachtwagen",
     fotos: [
-      { spotter: "Mika Broeders", date: "28 mei 2026" },
+      { spotter: "Mika Broeders", date: "28 mei 2026", img: "fotos/bavaria/Daan Jans 01-06-2026.jpeg" },
       { spotter: "Daan Jans",     date: "1 juni 2026", img: "fotos/bavaria/Daan Jans 01-06-2026.jpeg" },
     ]
   },
-
-  // ─── SPOT #021 ───────────────────────────────────────────
+  
+    // ─── SPOT #021 ───────────────────────────────────────────
   {
     num: "#021",
     name: "Simon Loos x Kordaat",
@@ -336,15 +708,15 @@ const spots = [
     kenteken: "XX-XXX-XX",
     loc: "Onbekend",
     date: "2026-01-01",
-    dateLabel: "1 januari 2026",
+    dateLabel: "01 januari 2026",
     spotter: "Mika Broeders",
     opmerking: "Simon Loos vrachtwagen met LIDL Kordaat trailer",
     fotos: [
-      { spotter: "Mika Broeders", date: "1 januari 2026", img: "fotos/SimonLoos-Kordaat.jpeg" },
+      { spotter: "Mika Broeders", date: "01 januari 2026", img: "fotos/SimonLoos-Kordaat.jpeg"  },
     ]
   },
 
-  // ─── SPOT #022 ───────────────────────────────────────────
+    // ─── SPOT #022 ───────────────────────────────────────────
   {
     num: "#022",
     name: "Simon x Heineken",
@@ -357,12 +729,12 @@ const spots = [
     spotter: "Mika Broeders",
     opmerking: "Hebben we dorst mannen? Simon Heineken",
     fotos: [
-      { spotter: "Mika Broeders",    date: "12 mei 2026", img: "fotos/heineken/mika broeders 12-05-2026.jpeg" },
-      { spotter: "Luc van Dommelen", date: "26 mei 2026", img: "fotos/heineken/luc 26-05-2026.jpeg" },
+      { spotter: "Mika Broeders", date: "12 mei 2026", img: "fotos/heineken/mika broeders 12-05-2026.jpeg" },
+      { spotter: "Luc van Dommelen", date: "26 mei 2026", img: "fotos/heineken/luc 26-05-2026.jpeg"},
     ]
   },
 
-  // ─── SPOT #023 ───────────────────────────────────────────
+    // ─── SPOT #023 ───────────────────────────────────────────
   {
     num: "#023",
     name: "Simon x Heineken Silver",
@@ -375,12 +747,12 @@ const spots = [
     spotter: "Daan Jans",
     opmerking: "",
     fotos: [
-      { spotter: "Daan Jans",        date: "28 mei 2026", img: "fotos/heinekensilver/daan jans 28-05-2026.jpeg" },
-      { spotter: "Luc van Dommelen", date: "2 juni 2026",  img: "fotos/heinekensilver/luc 02-06-2026.jpeg" },
+      { spotter: "Daan Jans", date: "28 mei 2026", img: "fotos/heinekensilver/daan jans 28-05-2026.jpeg" },
+      { spotter: "Luc van Dommelen", date: "2 juni 2026", img: "fotos/heinekensilver/luc 02-06-2026.jpeg" },
     ]
   },
 
-  // ─── SPOT #024 ───────────────────────────────────────────
+      // ─── SPOT #024 ───────────────────────────────────────────
   {
     num: "#024",
     name: "Simon x Amstel",
@@ -394,11 +766,11 @@ const spots = [
     opmerking: "",
     fotos: [
       { spotter: "Luc van Dommelen", date: "27 mei 2026", img: "fotos/amstel/luc 27-05-2026.jpeg" },
-      { spotter: "Tim de Bruijn",    date: "28 mei 2026", img: "fotos/amstel/tim 28-05-2026.jpeg" },
+      { spotter: "Tim de Bruijn", date: "28 mei 2026", img: "fotos/amstel/tim 28-05-2026.jpeg" },
     ]
   },
 
-  // ─── SPOT #030 ───────────────────────────────────────────
+    // ─── SPOT #030 ───────────────────────────────────────────
   {
     num: "#030",
     name: "Simon x Bakker",
@@ -415,7 +787,7 @@ const spots = [
     ]
   },
 
-  // ─── SPOT #031 ───────────────────────────────────────────
+    // ─── SPOT #031 ───────────────────────────────────────────
   {
     num: "#031",
     name: "Simon x Feed&Food",
@@ -432,10 +804,10 @@ const spots = [
     ]
   },
 
-  // ─── SPOT #032 ───────────────────────────────────────────
+    // ─── SPOT #032 ───────────────────────────────────────────
   {
     num: "#032",
-    name: "Simon x Oldtimers",
+    name: "Simon X Oldtimers",
     model: "Onbekend",
     rarity: "legendary",
     kenteken: "XX-XXX-X",
@@ -445,17 +817,17 @@ const spots = [
     spotter: "Sam Cornelissen",
     opmerking: "Bij het Simon Loos nest",
     fotos: [
-      { spotter: "Sam Cornelissen", date: "28 mei 2026", img: "SimonLoos-Oldtimers.jpeg" },
+      { spotter: "Sam Cornelissen", date: "28 mei 2026", img: "fotos/SimonLoos-Oldtimers.jpeg" },
     ]
   },
 
   // ─── NIEUWE SPOT — kopieer dit blok en vul in ────────────
   // {
-  //   num: "#033",
+  //   num: "#013",
   //   name: "Naam van de variant",
   //   model: "Merk + model",
-  //   rarity: "rare",              // legendary / rare / common (altijd kleine letters!)
-  //   kenteken: "XX-XXX-X",
+  //   rarity: "rare",              // legendary / rare / common
+  //   kenteken: "SL-000-XX",
   //   loc: "Stad, weg",
   //   date: "2026-06-01",          // JJJJ-MM-DD (voor sortering)
   //   dateLabel: "1 jun 2026",
@@ -472,16 +844,13 @@ const spots = [
 //  Hieronder hoef je niets aan te passen
 // ============================================================
 
-const pc = { legendary: "pip-legendary", rare: "pip-rare", common: "pip-common" };
-const lc = { legendary: "lbl-legendary", rare: "lbl-rare", common: "lbl-common" };
-const lt = { legendary: "Legendary",     rare: "Rare",     common: "Common"     };
+const pc  = { legendary: "pip-legendary", rare: "pip-rare", common: "pip-common" };
+const lc  = { legendary: "lbl-legendary", rare: "lbl-rare", common: "lbl-common" };
+const lt  = { legendary: "Legendary",     rare: "Rare",     common: "Common"     };
 
 let sortMode   = "nieuw";
 let activeSpot = null;
 let slideIdx   = 0;
-
-// Rarity altijd lowercase normaliseren zodat hoofdletters geen probleem geven
-function norm(r) { return (r || "common").toLowerCase(); }
 
 function getSorted() {
   const s = [...spots];
@@ -504,7 +873,6 @@ function render() {
   const sorted = getSorted();
 
   sorted.forEach(s => {
-    const r = norm(s.rarity);
     const c = document.createElement("div");
     c.className = "card";
     c.onclick = () => openDetail(s);
@@ -515,7 +883,7 @@ function render() {
       <div class="card-img">
         ${firstImg}
         <span class="card-num">${s.num}</span>
-        <div class="pip ${pc[r] || 'pip-common'}"></div>
+        <div class="pip ${pc[s.rarity]}"></div>
         <div class="spot-count">
           <i class="ti ti-camera" style="font-size:10px;"></i> ${s.fotos.length}
         </div>
@@ -525,7 +893,7 @@ function render() {
         <div class="card-sub">${s.model}</div>
         <div class="card-row">
           <span>${s.dateLabel}</span>
-          <span class="${lc[r] || 'lbl-common'}">${lt[r] || 'Common'}</span>
+          <span class="${lc[s.rarity]}">${lt[s.rarity]}</span>
         </div>
       </div>`;
     g.appendChild(c);
@@ -542,7 +910,6 @@ function render() {
 }
 
 function openDetail(s) {
-  const r = norm(s.rarity);
   activeSpot = s;
   slideIdx = 0;
   document.getElementById("dName").textContent = s.name;
@@ -554,12 +921,12 @@ function openDetail(s) {
     ["Eerste spot",  s.dateLabel],
     ["Locatie",      s.loc],
     ["Gespot door",  s.spotter],
-    ["Zeldzaamheid", `<span class="${lc[r] || 'lbl-common'}">${lt[r] || 'Common'}</span>`],
+    ["Zeldzaamheid", `<span class="${lc[s.rarity]}">${lt[s.rarity]}</span>`],
     ["Keer gespot",  s.fotos.length + "x"],
   ];
   if (s.opmerking) rows.push(["Opmerking", s.opmerking]);
   document.getElementById("dtable").innerHTML =
-    rows.map(row => `<tr><td>${row[0]}</td><td>${row[1]}</td></tr>`).join("");
+    rows.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join("");
 
   buildReel();
   document.getElementById("overlay").classList.add("open");
